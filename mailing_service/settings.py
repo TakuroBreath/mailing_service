@@ -24,7 +24,7 @@ load_dotenv(dotenv_path=env_path)
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3je*p0ye)e-s^60m#6p-ncv+q$v@-zpzxrfbn@73(ap2kb_bys'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_crontab',
 
     'main',
     'blog',
@@ -151,6 +153,11 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
 # EMAIL_USE_SSL = True
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Cron tasks
+CRONJOBS = [
+    ('*/10 * * * *', 'newletter.services.send_letters'),
+]
 
 CACHE_ENABLED = True
 
