@@ -30,7 +30,7 @@ class LoginView(BaseLoginView):
 
 def logout_view(request):
     logout(request)
-    reverse_lazy('main:main_window')
+    return redirect('main:main_window')
 
 
 class RegisterView(CreateView):
