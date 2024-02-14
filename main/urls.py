@@ -1,10 +1,10 @@
 from django.urls import path
 
 from main.apps import MainConfig
-from main.views import main
+from main.views import MainView
 
 app_name = MainConfig.name
 
 urlpatterns = [
-    path('', main, name='main_window')
+    path('', MainView.as_view(), name='main_window')
 ]
