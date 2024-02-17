@@ -9,10 +9,9 @@ from blog.models import Blog
 
 # Create your views here.
 class BlogListView(LoginRequiredMixin, ListView):
-
     model = Blog
     extra_context = {
-        'title': 'TechBlog'
+        'title': 'Blog'
     }
 
     def get_context_data(self, **kwargs):

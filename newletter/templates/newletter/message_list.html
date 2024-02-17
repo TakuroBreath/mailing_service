@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="row text-center mb-2">
+        {% if user.is_superuser or user.is_staff %}
+            <h1>Все рассылки</h1>
+        {% else %}
+            <h1>Ваши рассылки</h1>
+        {% endif %}
+    </div>
+
+    <div class="row text-center">
+
+        {% for object in object_list %}
+            {% if object.owner == user or user.is_superuser or user.is_staff %}
+                <div class="col-sm-3">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-header">
+                            <h5 class="my-0 font-weight-normal">{{ object.title|title }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'newletter:message_detail' object.pk %}" type="button"
+                               class="btn btn-lg btn-block btn-outline-primary">Подробнее...</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="col-sm-5">
+            <div class="card mb-3 box-shadow">
+                <div class="card-header">
+                    <h5 class="my-0 font-weight-normal">Место для вашей рассылки</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'newletter:message_create' %}" type="button"
+                       class="btn btn-lg btn-block btn-outline-primary">Создать рассылку</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

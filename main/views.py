@@ -10,12 +10,9 @@ from newletter.models import Message
 
 
 class MainView(TemplateView):
-    """
-    Контроллер отображения домашней страницы
-    """
     template_name = 'main/main.html'
     extra_context = {
-        'title': 'Mailing Wave'
+        'title': 'Mailing'
     }
 
     def get_context_data(self, **kwargs):
@@ -23,5 +20,8 @@ class MainView(TemplateView):
         context_data['all_messages'] = Message.objects.all()
         context_data['active_messages'] = Message.objects.filter(is_active=True)
         context_data['all_clients'] = get_cached_clients()
-        context_data['articles'] = sample(list(Blog.objects.all()), 3)
+        if len(list(Blog.objects.all())) < 3:
+            return context_data
+        else:
+            context_data['articles'] = sample(list(Blog.objects.all()), 3)
         return context_data

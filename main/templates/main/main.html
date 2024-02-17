@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <h1>Привет. Это главная страница. Навигация сверху</h1>
+    <img src="https://ae01.alicdn.com/kf/S08cf7ada18014b979a6a439c14a486ccd.jpg" alt="" width="350" height="350">
+    <h6>Cute kitties</h6>
+    <br>
+    <h5>Столько рассылочек всего: {{ all_messages | length }}</h5>
+    <h5>А столько клиентов: {{ all_clients | length }}</h5>
+    <br>
+    <br>
+    <h4>Новые статьи в блоге:</h4>
+    <div class="d-flex flex-wrap">
+
+        {% for article in articles %}
+            <div class="card m-2" style="width: 26rem;">
+                {% if article.preview %}
+                    <img src="/media/{{ article.preview }}" class="card-img-top" alt="" height="150">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.title }}</h5>
+                    <p class="card-text">{{ article.content|truncatechars:20 }}</p>
+                    <a href="{% url 'blog:blog_detail' article.pk %}" class="btn btn-primary">Читать полностью</a><br/>
+                    {% if content_manager %}<br/>
+                        <a href="{% url 'blog:blog_update' object.pk %}" type="button" class="btn btn-secondary">Редактировать</a>
+                        <a href="{% url 'blog:blog_delete' object.pk %}" type="button"
+                           class="btn btn-danger">Удалить</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

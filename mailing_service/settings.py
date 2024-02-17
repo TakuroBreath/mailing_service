@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'main',
     'blog',
     'users',
+    'client',
+    'newletter',
 ]
 
 MIDDLEWARE = [

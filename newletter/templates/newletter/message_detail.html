@@ -1,0 +1,72 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="col-12">
+        <div class="row">
+
+            {% if object.owner == user or user.is_superuser or user.is_staff %}
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                {{ object.title|title }}
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                <strong>Содержимое рассылки:</strong><br/>
+                                {{ object.body }}
+                            </p>
+                            <p>
+                                <strong>Рассылается для:</strong>
+                                {% for client_object in object.client.all %}<br/>
+                                    {{ client_object }}
+                                {% endfor %}
+                            </p>
+                            <p>
+                                <strong>Настройки рассылки:</strong><br/>
+                                {{ object.mailing_settings }}
+                            </p>
+                            <p>
+                                <strong>Владелец рассылки:</strong><br/>
+                                {{ object.owner }}
+                            </p>
+                            <p>
+                                <strong>Признак активности:</strong><br/>
+                                {% if object.is_active %}
+                                    <span class="active-status active">Активна</span>
+                                {% else %}
+                                    <span class="active-status inactive">Не активна</span>
+                                {% endif %}
+                            </p>
+                        </div>
+
+                        <div class="card bg-light">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    {% if object.owner == user or user.is_superuser %}
+                                        <a href="{% url 'newletter:message_update' object.pk %}" type="button"
+                                           class="btn btn-outline-secondary">Редактировать</a>
+                                        <a href="{% url 'newletter:message_delete' object.pk %}" type="button"
+                                           class="btn btn-outline-danger">Удалить</a>
+                                    {% endif %}
+                                    {% if user.is_staff %}
+                                        {% if object.is_active %}
+                                            <a href="{% url 'users:message_disable' object.pk %}" type="button"
+                                               class="btn btn-outline-danger">Отключить рассылку</a>
+                                        {% else %}
+                                            <a href="{% url 'users:message_disable' object.pk %}" type="button"
+                                               class="btn btn-outline-success">Включить рассылку</a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {% else %}
+                <h3>Нет прав для просмотра</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

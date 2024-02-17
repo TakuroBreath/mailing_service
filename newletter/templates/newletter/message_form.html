@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="col-lg-5 col-md-6 col-sm-12 mx-auto">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                {% if object %}
+                    <h5 class="my-0 font-weight-normal">Редактировать рассылку</h5>
+                {% else %}
+                    <h5 class="my-0 font-weight-normal">Создать рассылку</h5>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <form method="post" action="" class="form-floating">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% if object %}
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-light">Редактировать
+                        </button>
+                    {% else %}
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-light">Создать</button>
+                    {% endif %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

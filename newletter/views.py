@@ -65,6 +65,7 @@ class MessageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class MailingLogsListView(LoginRequiredMixin, ListView):
     model = MailingLogs
+    template_name = "newletter/logs_list.html"
     extra_context = {
         'title': 'Отчет рассылок'
     }
