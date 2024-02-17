@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="col-12">
+        <div class="row">
+
+
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            {{ object.first_name|title }} {{ object.last_name|title }}
+                            {% if object.patronymic %}
+                                {{ object.patronymic|title }}
+                            {% endif %}
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            {% if object.comment %}
+                                <strong>Комментарий клиента:</strong><br/>
+                                {{ object.comment }}
+                            {% else %}
+                                Клиент не оставил комментарий
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer mb-1">
+                        <strong>Email:</strong> {{ object.email }}
+                    </div>
+                    {% if user.is_staff or user.is_superuser %}
+                        <div class="card bg-light">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{% url 'client:client_update' object.pk %}" type="button"
+                                       class="btn btn-outline-secondary">Редактировать</a>
+                                    <a href="{% url 'client:client_delete' object.pk %}" type="button"
+                                       class="btn btn-outline-danger">Удалить</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

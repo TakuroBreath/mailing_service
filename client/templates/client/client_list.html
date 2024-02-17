@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="row text-center">
+        <h1>Список клиентов</h1>
+    </div>
+
+    <div class="row text-center">
+        {% for object in object_list %}
+            <div class="col-sm-3">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h5 class="my-0 font-weight-normal">{{ object.first_name|title }} {{ object.last_name|title }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            <li><h6>Email клиента:</h6>{{ object.email }}</li>
+                        </ul>
+                        <a href="{% url 'client:client_view' object.pk %}" type="button"
+                           class="btn btn-lg btn-block btn-outline-primary">Посмотреть подробнее</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="col-sm-3 mt-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h5 class="my-0 font-weight-normal">Создать клиента рассылки</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'client:client_create' %}" type="button"
+                       class="btn btn-lg btn-outline-primary">Создать клиента</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

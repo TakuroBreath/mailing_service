@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="card col-5 mb-2 mx-auto">
+                <h6>Все пользователи</h6>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'users:users_list' %}">Пользователи</a>
+            </div>
+            <div class="card col-5 mb-2 mx-auto">
+                <h6>Все рассылки</h6>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'newletter:message_list' %}">К рассылкам</a>
+            </div>
+            <div class="card col-5 mb-2 mx-auto">
+                <h6>Логи рассылок</h6>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'newletter:report_list' %}">К логам</a>
+            </div>
+            <div class="card col-5 mb-2 mx-auto">
+                <h6>Клиенты сервиса</h6>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'client:client_list' %}">К клиентам</a>
+            </div>
+            <div class="card col-5 mb-2 mx-auto">
+                <h6>Перейти в административную панель</h6>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'admin:index' %}">Админка</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

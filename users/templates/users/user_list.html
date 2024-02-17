@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="row text-center">
+        <h1>Список пользователей</h1>
+    </div>
+
+    <div class="row text-center">
+        {% for object in object_list %}
+            <div class="col-sm-5">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h6 class="my-0 font-weight-normal">Email пользователя: {{ object.email }}</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            <li><h6>Данные пользователя:</h6></li>
+                            Имя: {{ object.first_name }}<br/>
+                            Фамилия: {{ object.last_name }}<br/>
+                            {% if object.is_active %}
+                                Активен
+                            {% else %}
+                                Отключен
+                            {% endif %}
+                        </ul>
+                        {% if object.is_active %}
+                            <a href="{% url 'users:user_disable' object.pk %}" type="button"
+                               class="btn btn-lg btn-block btn-outline-primary">Отключить пользователя</a>
+                        {% else %}
+                            <a href="{% url 'users:user_disable' object.pk %}" type="button"
+                               class="btn btn-lg btn-block btn-outline-primary">Активировать пользователя</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
