@@ -3,7 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from newletter.forms import MessageForm
-from newletter.models import Message, MailingLogs
+from newletter.models import Message, MailingLogs, MailingSettings
 
 
 # Create your views here.
@@ -75,3 +75,44 @@ class MailingLogsListView(LoginRequiredMixin, ListView):
             return MailingLogs.objects.all()
         else:
             return MailingLogs.objects.filter(message__owner=self.request.user)
+
+
+class SettingsListView(LoginRequiredMixin, ListView):
+    model = MailingSettings
+    template_name = "newletter/settings_list.html"
+    extra_context = {
+        'title': 'Настройки рассылок'
+    }
+
+
+class SettingCreateView(LoginRequiredMixin, CreateView):
+    model = MailingSettings
+    template_name = "newletter/settings_form.html"
+
+    success_url = reverse_lazy('newletter:setting_list')
+    fields = ('send_time', 'frequency', 'status',)
+
+    extra_context = {
+        'title': 'Создание Настройки'
+    }
+
+
+class SettingUpdateView(LoginRequiredMixin, UpdateView):
+    model = MailingSettings
+    template_name = "newletter/settings_form.html"
+    success_url = reverse_lazy('newletter:setting_list')
+    fields = ('send_time', 'frequency', 'status',)
+
+    extra_context = {
+        'title': 'Редактирование Настройки'
+    }
+
+
+class SettingDeleteView(LoginRequiredMixin, DeleteView):
+    model = MailingSettings
+    template_name = "newletter/settings_confirm_delete.html"
+    success_url = reverse_lazy('newsletter:message_list')
+
+    extra_context = {
+        'title': 'Удаление настройки'
+    }
