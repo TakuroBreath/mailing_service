@@ -20,8 +20,5 @@ class MainView(TemplateView):
         context_data['all_messages'] = Message.objects.all()
         context_data['active_messages'] = Message.objects.filter(is_active=True)
         context_data['all_clients'] = get_cached_clients()
-        if len(list(Blog.objects.all())) < 3:
-            return context_data
-        else:
-            context_data['articles'] = sample(list(Blog.objects.all()), 3)
+        context_data['articles'] = list(Blog.objects.order_by('-created_at'))[-3:]
         return context_data

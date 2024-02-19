@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" action="" class="form-floating" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="{{ form.send_time.label }}">Время рассылки</label><br/>
+                            {{ form.send_time }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.frequency.label }}">Регулярность</label><br/>
+                            {{ form.frequency }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.status.label }}">Статус</label><br/>
+                            {{ form.status }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            {% if object %}
+                                Сохранить настройку
+                            {% else %}
+                                Создать настройку
+                            {% endif %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -23,6 +23,10 @@
                 <h6>Перейти в административную панель</h6>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'admin:index' %}">Админка</a>
             </div>
+            <div class="card col-5 mb-2 mx-auto">
+                <h6>Перейти к настройкам рассылки</h6>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'newletter:setting_list' %}">Настройки рассылки</a>
+            </div>
         </div>
     </div>
 {% endblock %}
