@@ -25,7 +25,7 @@ class MessageDetailView(LoginRequiredMixin, DetailView):
 class MessageCreateView(LoginRequiredMixin, CreateView):
     model = Message
     form_class = MessageForm
-    success_url = reverse_lazy('newsletter:message_list')
+    success_url = reverse_lazy('newletter:message_list')
 
     extra_context = {
         'title': 'Создание рассылки'
@@ -45,7 +45,7 @@ class MessageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     }
 
     def get_success_url(self):
-        return reverse('newsletter:message_detail', args=[self.kwargs.get('pk')])
+        return reverse('newletter:message_detail', args=[self.kwargs.get('pk')])
 
     def test_func(self):
         return self.request.user == self.get_object().owner or self.request.user.is_superuser
@@ -53,7 +53,7 @@ class MessageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class MessageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Message
-    success_url = reverse_lazy('newsletter:message_list')
+    success_url = reverse_lazy('newletter:message_list')
 
     extra_context = {
         'title': 'Удаление рассылки'
@@ -111,7 +111,7 @@ class SettingUpdateView(LoginRequiredMixin, UpdateView):
 class SettingDeleteView(LoginRequiredMixin, DeleteView):
     model = MailingSettings
     template_name = "newletter/settings_confirm_delete.html"
-    success_url = reverse_lazy('newsletter:message_list')
+    success_url = reverse_lazy('newletter:message_list')
 
     extra_context = {
         'title': 'Удаление настройки'
